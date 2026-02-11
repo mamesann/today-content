@@ -1,15 +1,10 @@
 <script setup>
 import { ref } from "vue";
 import TodayWether from "./TodayWether.vue";
-import TodayPressure from "./TodayPressure.vue";
 import TodayFortune from "./TodayFortune.vue";
-// import TodayFlower from './TodayFlower.vue'
+import DailyYoga from "./DailyYoga.vue";
 
-defineProps({
-  // msg: String,
-});
-
-// const count = ref(0)
+defineProps({});
 </script>
 
 <template>
@@ -25,16 +20,12 @@ defineProps({
           <TodayWether></TodayWether>
         </li>
 
-        <li class="content" id="pressure">
-          <!-- <h3>気圧</h3>
-        <div class="value">低気圧</div> -->
-          <TodayPressure></TodayPressure>
+        <li class="content" id="fortune">
+          <TodayFortune></TodayFortune>
         </li>
 
         <li class="content" id="fortune">
-          <TodayFortune></TodayFortune>
-          <!-- <h3>占い</h3>
-        <div class="value">今日の運勢は良好</div> -->
+          <DailyYoga></DailyYoga>
         </li>
 
         <!-- <li class="content" id="flower"> -->

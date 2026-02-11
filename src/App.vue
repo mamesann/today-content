@@ -28,9 +28,6 @@ const menuOpen = ref(false);
               <router-link to="/wether" @click="menuOpen = false">天気</router-link>
             </li>
             <li>
-              <router-link to="/pressure" @click="menuOpen = false">気圧</router-link>
-            </li>
-            <li>
               <router-link to="/fortune" @click="menuOpen = false">占い</router-link>
             </li>
             <li>
@@ -64,9 +61,6 @@ const menuOpen = ref(false);
 }
 
 #app-header {
-  /* position: relative; */
-  /* z-index: 1000; */
-  /* top: 40; */
   height: 40px;
   display: flex;
   align-items: center; /* center children vertically to remove top gap */
@@ -100,7 +94,6 @@ const menuOpen = ref(false);
   height: 26px;
   padding: 2px;
   border: none;
-  /* background: var(--cafe-paper); */
   border-radius: 8px;
   box-shadow: 0 6px 18px var(--cafe-shadow);
   cursor: pointer;

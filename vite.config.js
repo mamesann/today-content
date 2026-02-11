@@ -15,25 +15,6 @@ export default defineConfig({
         secure: true,
         // パスはそのまま転送する
       },
-      // '/api-flower': {
-      //   target: 'http://api.whatistoday.cyou',
-      //   changeOrigin: true,
-      //   // 先頭の '/api-flower' を消して、後ろのパスをターゲットに渡す
-      //   rewrite: (path) => path.replace(/^\/api-flower/, ''),
-      //   // http と https の混在によるエラーを防ぐための設定
-      //   secure: false,
-      //   followRedirects: true,
-      // }
-      // birthflower API 用プロキシ: /api/whatistoday/* -> https://api.whatistoday.cyou/*
-      // '/api/whatistoday': {
-      //   target: 'https://api.whatistoday.cyou',
-      //   changeOrigin: true,
-      //   secure: true,
-      //   // proxy 経由で /api/whatistoday/v3/... を呼ぶと
-      //   // https://api.whatistoday.cyou/api/whatistoday/v3/... になってしまうため
-      //   // 先頭の /api/whatistoday を取り除くようにリライトします。
-      //   rewrite: (path) => path.replace(/^\/api\/whatistoday/, ''),
-      // },
     },
   },
 })

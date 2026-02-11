@@ -5,12 +5,11 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* cafe palette */
-  --cafe-bg: #f4efe6;        /* warm paper background */
-  --cafe-paper: #fffaf4;     /* card / paper */
-  --cafe-accent: #b36b29;    /* coffee brown accent */
-  --cafe-text: #3b2f2f;      /* main text */
-  --cafe-muted: #7a6f6f;     /* secondary text */
+  --cafe-bg: #f4efe6;
+  --cafe-paper: #fffaf4;
+  --cafe-accent: #b36b29;
+  --cafe-text: #3b2f2f;
+  --cafe-muted: #7a6f6f;
   --cafe-shadow: rgba(33,23,19,0.06);
 
   color-scheme: light dark;
@@ -26,14 +25,12 @@
 body {
   margin: 0;
   display: flex;
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
   overflow: hidden;
 }
 
 #app {
-  /* padding: 0.8rem; */
   width: 100%;
   height: 100%;
   overflow: hidden;
