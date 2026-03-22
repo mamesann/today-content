@@ -1,36 +1,42 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from "vue";
 
-const flowerData = ref(null)
-const error = ref(null)
+const flowerData = ref(null);
+const error = ref(null);
 
 const today = computed(() => {
-  const d = new Date()
-  const month = d.getMonth() + 1
-  const day = d.getDate()
+  const d = new Date();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
   // API expects MMDD concatenated with zero padding (e.g., Nov 26 -> 1126, Jan 12 -> 0112)
-  return `${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`
-})
+  return `${String(month).padStart(2, "0")}${String(day).padStart(2, "0")}`;
+});
 
 async function loadFlower(mmdd) {
   // try {
   // Build URL using the current page origin so we hit the same host/port the
   // browser is connected to (avoids mismatches when Vite picks a different port).
 
-  const url = `https://api.whatistoday.cyou/index.cgi/v3/birthflower/${mmdd}`;
+  const url = `/api/flower/v3/birthflower/${mmdd}`;
   // const url = '/api/whatistoday/v3/birthflower/' + mmdd;
-  console.log('Fetching from URL:', url)
+    console.log(' 花情報 取得 URL (proxy 経由):', url);
   try {
     const response = await fetch(url);
-    if (!response.ok) {
-      const body = await response.text().catch(() => "(レスポンス本文取得失敗)");
-      console.error(`花情報取得に失敗しました。status=${response.status} body=`, body);
-      return;
-    }
-    // const data = await response.json();
-    const data = await response.text();
-    console.log('花データ取得成功:', response);
-    console.log('data:', data);
+    console.log("Fetch response:", response);
+    // if (!response.ok) {
+    //   const body = await response
+    //     .text()
+    //     .catch(() => "(レスポンス本文取得失敗)");
+    //   console.error(
+    //     `花情報取得に失敗しました。status=${response.status} body=`,
+    //     body,
+    //   );
+    //   return;
+    // }
+    // // const data = await response.json();
+    // const data = await response.text();
+    // console.log("花データ取得成功:", response);
+    // console.log("data:", data);
     return;
   } catch (error) {
     console.error(`花情報取得エラー:`, error);
@@ -75,8 +81,8 @@ async function loadFlower(mmdd) {
 }
 
 onMounted(() => {
-  loadFlower(today.value)
-})
+  loadFlower(today.value);
+});
 </script>
 
 <template>
@@ -93,17 +99,24 @@ onMounted(() => {
 </template>
 
 <style scoped>
-#today-flower h3::before{ content: "💐"; }
-.flower-card{
+#today-flower h3::before {
+  content: "💐";
+}
+.flower-card {
   background: var(--cafe-paper);
   padding: 0.6rem;
   border-radius: 8px;
   box-shadow: var(--cafe-shadow);
 }
-.name{
+.name {
   font-weight: 700;
   font-size: 1.05rem;
 }
-.meta{ font-size: 0.8rem; color: var(--cafe-muted); }
-.error{ color: #c33; }
+.meta {
+  font-size: 0.8rem;
+  color: var(--cafe-muted);
+}
+.error {
+  color: #c33;
+}
 </style>

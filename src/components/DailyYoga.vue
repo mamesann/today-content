@@ -29,7 +29,7 @@ const yogaMovies = {
       title: "夜の腸活ヨガ",
       time: "30分",
       url: "https://www.youtube.com/embed/wtX9c4vlkMs?si=nMYG6Y0bUxrdkfDn",
-    }
+    },
   ],
   power: [
     {
@@ -41,7 +41,7 @@ const yogaMovies = {
       title: "全身のフローヨガ",
       time: "20分",
       url: "https://www.youtube.com/embed/szQ2ujCZW1Y?si=w-KQxKOTQvFNY-6k",
-    }
+    },
   ],
   shoulder: [
     {
@@ -80,31 +80,36 @@ const yogaMovies = {
       time: "10分",
       url: "https://www.youtube.com/embed/TL4Jb7d4zFU?si=2QmpBrSGz0rbHO_h",
     },
-
   ],
-}
+};
 
 /*
  * マウント前
  */
-onBeforeMount(() => {
-
-});
+onBeforeMount(() => {});
 
 /*
  * マウント後
  */
 onMounted(() => {
-
+  getIframeSize();
+  window.addEventListener("resize", getIframeSize);
 });
 
-const selectedKind = ref("morning");
+const getIframeSize = () => {
+  iframeSize.value.width = todayYogaAreaRef.value.clientWidth;
+  iframeSize.value.height = todayYogaAreaRef.value.clientWidth / 2 - 16;
+};
 
+const selectedKind = ref("morning");
+const todayYogaAreaRef = ref(null);
+const iframeSize = ref({ width: 0, height: 0 });
 </script>
 
 <template>
-  <div id="today-yoga">
-    <h3><router-link to="/yoga">ヨガ</router-link></h3>
+  <div id="today-yoga" ref="todayYogaAreaRef">
+    <!-- <h3><router-link to="/yoga">ヨガ</router-link></h3> -->
+    <h3>ヨガ</h3>
     <div id="info-yoga">
       <select name="yoga-type" id="yoga-type" v-model="selectedKind">
         <option value="morning">morning 🌞</option>
@@ -115,9 +120,32 @@ const selectedKind = ref("morning");
         <option value="yin">yin 🌸</option>
         <option value="autonomicNervous">autonomicNervous 🧠</option>
       </select>
-      <div class="yoga-movie" v-for="movie in yogaMovies[selectedKind]" :key="movie.title">
-        <p>◎{{ movie.title }} ({{ movie.time }})</p>
-        <iframe width="240" height="100" :src="movie.url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div id="yoga-movies">
+        <div
+          class="yoga-movie"
+          v-for="movie in yogaMovies[selectedKind]"
+          :key="movie.title"
+        >
+          <p>◎{{ movie.title }} ({{ movie.time }})</p>
+          <iframe
+            :width="iframeSize.width"
+            :height="iframeSize.height"
+            :src="movie.url"
+            title="YouTube video player"
+            frameborder="0"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share;
+            "
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -145,4 +173,36 @@ h3 a {
   margin-left: 0.25rem;
 }
 
+#info-yoga select {
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  max-width: 100%;
+  width: 100%;
+  min-width: 120px;
+  transition:
+    box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+#info-yoga select:focus {
+  outline: none;
+  box-shadow: 0 8px 20px rgba(115, 103, 255, 0.08);
+  border-color: rgba(115, 103, 255, 0.6);
+}
+
+.yoga-movie p {
+  margin: 0 0 8px;
+}
+
+#yoga-movies {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(v-bind('iframeSize.height') * 2 + 16px);
+  max-height: calc(v-bind('iframeSize.height') * 2 + 16px);
+  overflow-y: auto;
+}
 </style>

@@ -43,7 +43,6 @@ export async function loadTodayFortune() {
   try {
     // 開発中は Vite の proxy を経由して取得する
     const url = `/api/horoscope/free/${today.value.year}/${String(today.value.month).padStart(2, "0")}/${String(today.value.day).padStart(2, "0")}`;
-    // console.log('占いAPI 取得 URL (proxy 経由):', url);
     const response = await fetch(url);
     if (!response.ok) {
       const body = await response

@@ -15,6 +15,17 @@ export default defineConfig({
         secure: true,
         // パスはそのまま転送する
       },
+      '/api': { // Any request starting with /api will be proxied
+        target: 'https://meigen.doodlenote.net',
+        changeOrigin: true, // Needed for virtual hosted sites
+        secure: true,
+        // Forward paths under /api directly to https://meigen.doodlenote.net/api/...
+      },
+      '/api/flower': { // Any request starting with /api will be proxied
+        target: 'https://api.whatistoday.cyou/index.cgi',
+        changeOrigin: true, // Needed for virtual hosted sites
+        secure: true,
+      }
     },
   },
 })

@@ -17,7 +17,8 @@ onBeforeMount(() => {
 
 <template>
   <div id="today-fortune">
-    <h3><router-link to="/fortune">占い</router-link></h3>
+    <!-- <h3><router-link to="/fortune">占い</router-link></h3> -->
+    <h3>占い</h3>
     <p>星座：{{ CONSTELLATION[selectConstellation] }}</p>
     <div class="fortune-status">
       <table id="fortune-table" border="1px">
@@ -83,10 +84,17 @@ h3 a {
   color: var(--cafe-text);
 }
 
+.fortune-status {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+
 #fortune-table {
   /* border: 1px solid var(--cafe-border); */
   border-collapse: collapse;
   border-color: var(--cafe-muted);
+  background: white;
   /* width: 100%; */
   /* border-collapse: collapse; */
 }
@@ -99,10 +107,12 @@ h3 a {
 
 #fortune-table .header {
   width: 60%;
+  min-width: 6rem;
 }
 
 #fortune-table .value {
   text-align: right;
+  min-width: 3.2rem;
 }
 
 #fortune-table .result-text {

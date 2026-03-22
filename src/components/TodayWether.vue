@@ -40,7 +40,6 @@ onBeforeMount(() => {
  */
 onMounted(() => {
   getSelectArea();
-  console.log("選択中：", selectedAreaName.value);
 });
 
 /*
@@ -90,10 +89,6 @@ async function setForecast() {
     }
     const data = await response.json();
     selectedAreaForecast.value = data;
-    console.log(
-      `${selectedAreaInfo.value.name} の天気予報を取得しました。`,
-      data,
-    );
     return;
   } catch (error) {
     console.error(
@@ -109,11 +104,8 @@ async function setForecast() {
  */
 const weatherStatus = computed(() => {
   if (!selectedAreaForecast.value) {
-    console.log("selectedAreaForecast is null");
     return "データなし";
   }
-  console.log("selectedAreaName:", selectedAreaName.value);
-  console.log("selectedAreaForecast:", selectedAreaForecast.value);
   // ここでselectedAreaForecast.valueを解析して、適切な天気状態を返すロジックを実装
   const nowData = selectedAreaForecast.value[0]; // 最新データ
   const reportDatetime = nowData.reportDatetime; // 予報の取得時間
@@ -215,7 +207,8 @@ const pressureImg = computed(() => {
 
 <template>
   <div id="today-wether">
-    <h3><router-link to="/wether">天気</router-link></h3>
+    <!-- <h3><router-link to="/wether">天気</router-link></h3> -->
+    <h3>天気</h3>
     <div id="info-wether">
       <span
         >対象：<span id="area-name">{{ selectedAreaName || "未選択" }}</span></span
@@ -240,7 +233,7 @@ const pressureImg = computed(() => {
           width="40"
           height="40"
         />
-        <div class="value">{{ pressureLabel }}</div>
+        <div class="value">気圧は{{ pressureLabel }}</div>
       </div>
     </div>
   </div>

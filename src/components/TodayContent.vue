@@ -1,10 +1,26 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { sortedDisplayItems } from "../stores/commonStore";
 import TodayWether from "./TodayWether.vue";
 import TodayFortune from "./TodayFortune.vue";
+import TodayMeigen from "./TodayMeigen.vue";
 import DailyYoga from "./DailyYoga.vue";
+import TodayFlower from "./TodayFlower.vue";
+import TodayDetail from "./TodayDetail.vue";
+import MyQiita from "./MyQiita.vue";
 
 defineProps({});
+
+const componentMap = {
+  weather: TodayWether,
+  fortune: TodayFortune,
+  meigen: TodayMeigen,
+  yoga: DailyYoga,
+  qiita: MyQiita,
+  todayDetail: TodayDetail,
+};
+
+const visibleItems = computed(() => sortedDisplayItems.value.filter((i) => i.display));
 </script>
 
 <template>
@@ -16,23 +32,14 @@ defineProps({});
       </section> -->
 
       <ol id="today-list">
-        <li class="content" id="wether">
-          <TodayWether></TodayWether>
+        <li
+          v-for="item in visibleItems"
+          :key="item.value"
+          class="content"
+          :id="item.value"
+        >
+          <component :is="componentMap[item.value]"></component>
         </li>
-
-        <li class="content" id="fortune">
-          <TodayFortune></TodayFortune>
-        </li>
-
-        <li class="content" id="fortune">
-          <DailyYoga></DailyYoga>
-        </li>
-
-        <!-- <li class="content" id="flower"> -->
-        <!-- <TodayFlower></TodayFlower> -->
-        <!-- <h3>お花</h3>
-        <div class="value">チューリップ — 花言葉：思いやり</div> -->
-        <!-- </li> -->
       </ol>
     </div>
   </div>
